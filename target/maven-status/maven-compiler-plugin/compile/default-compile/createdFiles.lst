@@ -1,1 +1,7 @@
-App.class
+com\sergeygolstinin\restaurant\model\Reservation.class
+com\sergeygolstinin\restaurant\model\DiningTable.class
+com\sergeygolstinin\restaurant\model\User.class
+com\sergeygolstinin\restaurant\model\OrderItem.class
+com\sergeygolstinin\restaurant\model\Payment.class
+com\sergeygolstinin\restaurant\model\Order.class
+com\sergeygolstinin\restaurant\model\MenuItem.class
