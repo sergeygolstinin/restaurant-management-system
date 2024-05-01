@@ -17,7 +17,7 @@ public class MenuItemService {
         this.menuItemRepository = new MenuItemRepository(entityManager);
     }
 
-    public MenuItem findMenuItem(Long id) {
+    public MenuItem getMenuItemById(Long id) {
         entityManager.getTransaction().begin();
         MenuItem menuItem = menuItemRepository.findById(id);
         entityManager.getTransaction().commit();
@@ -31,16 +31,15 @@ public class MenuItemService {
         return savedMenuItem;
     }
 
+    public void updateMenuItem(MenuItem menuItem) {
+        entityManager.getTransaction().begin();
+        MenuItem updatedMenuItem = menuItemRepository.save(menuItem);
+        entityManager.getTransaction().commit();
+    }
+
     public void deleteMenuItem(Long id) {
         entityManager.getTransaction().begin();
         menuItemRepository.delete(id);
         entityManager.getTransaction().commit();
-    }
-
-    public MenuItem updateMenuItem(MenuItem menuItem) {
-        entityManager.getTransaction().begin();
-        MenuItem updatedMenuItem = menuItemRepository.save(menuItem);
-        entityManager.getTransaction().commit();
-        return updatedMenuItem;
     }
 }
