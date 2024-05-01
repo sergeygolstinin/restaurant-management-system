@@ -40,17 +40,20 @@ public class MenuItemService {
         }
     }
 
-    public void updateMenuItem(MenuItem menuItem) {
+    public MenuItem updateMenuItem(MenuItem menuItem) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            menuItemRepository.save(menuItem);
+            // Save the menuItem and obtain the managed entity
+            MenuItem updatedMenuItem = menuItemRepository.save(menuItem);
             transaction.commit();
+            return updatedMenuItem; // Return the managed entity
         } catch (Exception e) {
-            transaction.rollback();
+            transaction.rollback(); // Rollback the transaction on error
             throw new RuntimeException("Failed to update menu item: " + menuItem, e);
         }
     }
+
 
     public void deleteMenuItem(Long id) {
         EntityTransaction transaction = entityManager.getTransaction();
