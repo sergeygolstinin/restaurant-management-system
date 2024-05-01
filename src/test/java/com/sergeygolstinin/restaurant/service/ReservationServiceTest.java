@@ -53,4 +53,51 @@ class ReservationServiceTest {
         assertNotNull(found);
         verify(reservationRepository).findById(reservationId);
     }
-}
+        @Test
+        void testDeleteReservation() {
+            Long reservationId = 1L;
+            doNothing().when(reservationRepository).delete(reservationId);
+
+            reservationService.deleteReservation(reservationId);
+
+            verify(reservationRepository).delete(reservationId);
+            verify(entityTransaction).begin();
+            verify(entityTransaction).commit();
+        }
+
+        @Test
+        void testUpdateReservation() {
+            Reservation reservation = new Reservation();
+            reservation.setId(1L); // Assuming ID is set for updating
+            when(reservationRepository.save(any(Reservation.class))).thenReturn(reservation);
+
+            Reservation updated = reservationService.updateReservation(reservation);
+            assertNotNull(updated);
+            verify(reservationRepository).save(reservation);
+            verify(entityTransaction).begin();
+            verify(entityTransaction).commit();
+        }
+
+        @Test
+        void testDeleteReservationThrowsException() {
+            Long reservationId = 1L;
+            doThrow(new RuntimeException("Database error")).when(reservationRepository).delete(reservationId);
+
+            assertThrows(RuntimeException.class, () -> reservationService.deleteReservation(reservationId));
+
+            verify(entityTransaction).begin();
+            verify(entityTransaction).rollback(); // Ensure rollback on exception
+        }
+
+        @Test
+        void testUpdateReservationThrowsException() {
+            Reservation reservation = new Reservation();
+            reservation.setId(1L); // Assume ID is set for an update
+            when(reservationRepository.save(any(Reservation.class))).thenThrow(new RuntimeException("Database error"));
+
+            assertThrows(RuntimeException.class, () -> reservationService.updateReservation(reservation));
+
+            verify(entityTransaction).begin();
+            verify(entityTransaction).rollback(); // Ensure rollback on exception
+        }
+    }

@@ -67,4 +67,28 @@ class MenuItemServiceTest {
         verify(entityTransaction).begin();
         verify(entityTransaction).commit();
     }
+    @Test
+    void testUpdateMenuItem() {
+        MenuItem menuItem = new MenuItem("Burger", 11.99, "Deluxe Burger");
+        menuItem.setId(2L);
+        when(menuItemRepository.save(any(MenuItem.class))).thenReturn(menuItem);
+
+        menuItemService.updateMenuItem(menuItem);
+
+        verify(entityTransaction).begin();
+        verify(menuItemRepository).save(menuItem);
+        verify(entityTransaction).commit();
+    }
+
+    @Test
+    void testUpdateMenuItemThrowsException() {
+        MenuItem menuItem = new MenuItem("Burger", 11.99, "Deluxe Burger");
+        menuItem.setId(2L);
+        when(menuItemRepository.save(any(MenuItem.class))).thenThrow(new RuntimeException("Database error"));
+
+        assertThrows(RuntimeException.class, () -> menuItemService.updateMenuItem(menuItem));
+
+        verify(entityTransaction).begin();
+        verify(entityTransaction).rollback(); // Ensure rollback on exception
+    }
 }
