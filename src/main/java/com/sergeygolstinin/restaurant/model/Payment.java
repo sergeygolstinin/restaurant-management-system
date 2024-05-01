@@ -1,13 +1,6 @@
 package com.sergeygolstinin.restaurant.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "payments")
@@ -35,5 +28,37 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    // Getters and setters
+    // Getters
+    public Long getId() {
+        return id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    // Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
 }
