@@ -2,6 +2,9 @@ package com.sergeygolstinin.restaurant.service;
 
 import com.sergeygolstinin.restaurant.dao.UserRepository;
 import com.sergeygolstinin.restaurant.model.User;
+
+import jakarta.persistence.EntityManager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
     @Mock
     private UserRepository userRepository;
+    
+    @Mock
+    private EntityManager entityManager;
 
     @InjectMocks
     private UserService userService;

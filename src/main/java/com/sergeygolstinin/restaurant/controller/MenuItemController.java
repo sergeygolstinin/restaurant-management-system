@@ -19,7 +19,7 @@ public class MenuItemController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMenuItem(@PathParam("id") Long id) {
         try {
-            MenuItem menuItem = menuItemService.findMenuItem(id);
+            MenuItem menuItem = menuItemService.getMenuItemById(id);
             if (menuItem == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity("Menu item not found").build();
             }

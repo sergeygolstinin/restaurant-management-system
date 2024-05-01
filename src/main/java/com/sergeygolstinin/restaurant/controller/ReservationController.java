@@ -1,14 +1,22 @@
 package com.sergeygolstinin.restaurant.controller;
 
+import com.sergeygolstinin.restaurant.dao.ReservationRepository;
 import com.sergeygolstinin.restaurant.model.Reservation;
 import com.sergeygolstinin.restaurant.service.ReservationService;
+import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.inject.Inject;
 
 @Path("/reservations")
 public class ReservationController {
-    private ReservationService reservationService = new ReservationService();
+    private ReservationService reservationService;
+    
+    @Inject
+    public ReservationController(EntityManager entityManager, ReservationRepository reservationRepository) {
+        this.reservationService = new ReservationService(entityManager, reservationRepository);
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

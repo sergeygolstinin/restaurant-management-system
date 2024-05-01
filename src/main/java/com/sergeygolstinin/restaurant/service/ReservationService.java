@@ -11,10 +11,9 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
     private EntityManager entityManager;
 
-    public ReservationService() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("restaurantPU");
-        this.entityManager = emf.createEntityManager();
-        this.reservationRepository = new ReservationRepository(entityManager);
+    public ReservationService(EntityManager entityManager, ReservationRepository reservationRepository) {
+        this.entityManager = entityManager;
+        this.reservationRepository = reservationRepository;
     }
 
     public Reservation getReservationById(Long id) {

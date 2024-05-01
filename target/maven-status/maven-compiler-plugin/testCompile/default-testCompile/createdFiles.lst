@@ -1,0 +1,10 @@
+com\sergeygolstinin\restaurant\service\TableServiceTest.class
+com\sergeygolstinin\restaurant\dao\TableRepositoryTest.class
+com\sergeygolstinin\restaurant\dao\MenuItemRepositoryTest.class
+com\sergeygolstinin\restaurant\service\ReservationServiceTest.class
+com\sergeygolstinin\restaurant\dao\PaymentRepositoryTest.class
+com\sergeygolstinin\restaurant\dao\UserRepositoryTest.class
+com\sergeygolstinin\restaurant\service\UserServiceTest.class
+com\sergeygolstinin\restaurant\dao\ReservationRepositoryTest.class
+com\sergeygolstinin\restaurant\service\MenuItemServiceTest.class
+com\sergeygolstinin\restaurant\dao\OrderRepositoryTest.class

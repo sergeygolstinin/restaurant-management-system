@@ -2,6 +2,9 @@ package com.sergeygolstinin.restaurant.service;
 
 import com.sergeygolstinin.restaurant.dao.TableRepository;
 import com.sergeygolstinin.restaurant.model.DiningTable;
+
+import jakarta.persistence.EntityManager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class TableServiceTest {
     @Mock
     private TableRepository tableRepository;
+    
+    @Mock
+    private EntityManager entityManager;
 
     @InjectMocks
     private TableService tableService;

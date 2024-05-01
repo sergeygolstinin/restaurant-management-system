@@ -2,6 +2,9 @@ package com.sergeygolstinin.restaurant.service;
 
 import com.sergeygolstinin.restaurant.dao.ReservationRepository;
 import com.sergeygolstinin.restaurant.model.Reservation;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReservationServiceTest {
     @Mock
     private ReservationRepository reservationRepository;
+    
+    @Mock
+    private EntityManager entityManager;
+
+    @Mock
+    private EntityTransaction entityTransaction;
 
     @InjectMocks
     private ReservationService reservationService;
@@ -20,16 +29,19 @@ class ReservationServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        when(entityManager.getTransaction()).thenReturn(entityTransaction);
     }
 
     @Test
     void testCreateReservation() {
-        Reservation reservation = new Reservation(); // Set properties as needed
+        Reservation reservation = new Reservation(); // Assume required properties are set
         when(reservationRepository.save(any(Reservation.class))).thenReturn(reservation);
 
         Reservation created = reservationService.createReservation(reservation);
         assertNotNull(created);
         verify(reservationRepository).save(reservation);
+        verify(entityTransaction).begin();
+        verify(entityTransaction).commit();
     }
 
     @Test

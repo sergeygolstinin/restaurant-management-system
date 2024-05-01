@@ -8,13 +8,12 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class TableService {
-    private TableRepository tableRepository;
-    private EntityManager entityManager;
+    private  TableRepository tableRepository;
+    private  EntityManager entityManager;
 
-    public TableService() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("restaurantPU");
-        this.entityManager = emf.createEntityManager();
-        this.tableRepository = new TableRepository(entityManager);
+    public TableService(EntityManager entityManager, TableRepository tableRepository) {
+        this.entityManager = entityManager;
+        this.tableRepository = tableRepository;
     }
 
     public DiningTable getTableById(Long id) {

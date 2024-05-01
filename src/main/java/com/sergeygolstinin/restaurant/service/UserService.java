@@ -11,10 +11,10 @@ public class UserService {
     private UserRepository userRepository;
     private EntityManager entityManager;
 
-    public UserService() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("restaurantPU");
-        this.entityManager = emf.createEntityManager();
-        this.userRepository = new UserRepository(entityManager);
+    public UserService(EntityManager entityManager, UserRepository userRepository) {
+        
+        this.entityManager = entityManager;
+        this.userRepository = userRepository;
     }
 
     public User getUserById(Long id) {

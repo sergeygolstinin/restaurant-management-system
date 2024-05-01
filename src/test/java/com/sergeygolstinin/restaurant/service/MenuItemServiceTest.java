@@ -1,7 +1,11 @@
 package com.sergeygolstinin.restaurant.service;
 
+
+
 import com.sergeygolstinin.restaurant.dao.MenuItemRepository;
 import com.sergeygolstinin.restaurant.model.MenuItem;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class MenuItemServiceTest {
     @Mock
     private MenuItemRepository menuItemRepository;
+    @Mock
+    private EntityManager entityManager;
+    @Mock
+    private EntityTransaction entityTransaction;
 
     @InjectMocks
     private MenuItemService menuItemService;
@@ -20,6 +28,7 @@ class MenuItemServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        when(entityManager.getTransaction()).thenReturn(entityTransaction);
     }
 
     @Test
@@ -31,6 +40,8 @@ class MenuItemServiceTest {
         assertNotNull(created);
         assertEquals("Pizza", created.getName());
         verify(menuItemRepository).save(menuItem);
+        verify(entityTransaction).begin();
+        verify(entityTransaction).commit();
     }
 
     @Test
@@ -43,14 +54,17 @@ class MenuItemServiceTest {
         assertNotNull(found);
         assertEquals("Pizza", found.getName());
         verify(menuItemRepository).findById(menuItemId);
+        verify(entityTransaction).begin();
+        verify(entityTransaction).commit();
     }
 
     @Test
     void testDeleteMenuItem() {
         Long menuItemId = 1L;
         doNothing().when(menuItemRepository).delete(menuItemId);
-        
         menuItemService.deleteMenuItem(menuItemId);
         verify(menuItemRepository).delete(menuItemId);
+        verify(entityTransaction).begin();
+        verify(entityTransaction).commit();
     }
 }
